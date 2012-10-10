@@ -6,9 +6,11 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Random;
 import java.util.Scanner;
@@ -206,10 +208,32 @@ public class MakingTestFile {
 		}
 	};
 	
+	Runnable r4 = new Runnable() {
+		
+		@Override
+		public void run() {
+			List<Integer> list = new ArrayList<Integer>();
+			try {
+				while (true) {
+					if(!ThreadQueue.getInstance().isEmpty()) {
+						list.add(ThreadQueue.getInstance().poll());
+						System.out.println("polledValue: "+list.toString()+"     ThreadName: "+Thread.currentThread().toString());
+					}
+					Thread.sleep(500L);
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+		}
+	};
+	
 	@Test
 	public void queueGenerator() throws InterruptedException {
-		Thread thr = new Thread(r3);
-		thr.start();
+		Thread thrGenerator = new Thread(r3);
+		thrGenerator.start();
+		Thread thrPoller01 = new Thread(r4);
+		thrPoller01.start();
 		Thread.sleep(10000L);
 		Thread.interrupted();
 	}
