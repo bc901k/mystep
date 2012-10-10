@@ -39,7 +39,7 @@ public class MakingTestFile {
 	}
 
 	@Test
-	public void binarySearching(){
+	public void binarySearching(){ 
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
 		boolean again = true;
