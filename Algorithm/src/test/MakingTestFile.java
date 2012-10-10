@@ -195,8 +195,8 @@ public class MakingTestFile {
 			try {
 				while (true) {
 					ThreadQueue.getInstance().add(randomGenerator.nextInt(10000));
-					interval = randomGenerator.nextInt(10000);
-					System.out.println("que: "+ThreadQueue.getInstance().toString()+"         interval: "+interval);
+					interval = randomGenerator.nextInt(1000);
+					System.out.println("que: "+ThreadQueue.getInstance().toString()+"         interval: "+interval+"     ThreadName: "+Thread.currentThread().toString());
 					Thread.sleep(interval);
 				}
 			} catch (InterruptedException e) {
