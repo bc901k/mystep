@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
+import java.util.Scanner;
 
 public class MakingTestFile {
 	
@@ -37,32 +38,44 @@ public class MakingTestFile {
 		}
 	}
 
-//	@Test
+	@Test
 	public void binarySearching(){
-		double target = 21367.0;
-		double listSize = 100000.0;
-		double half 	= 0.0;
-		double max 	= listSize;
-		boolean chk = true;
-		int count		= 1;
-		while(chk){
-			half = (double) Math.ceil(max/2);
-			System.out.println("target: "+target+"       Half: "+half+"      realNumber: "+(max/2));
-			if (half == target) {
-				chk = false;
-			} else {
-				if(half < target) {
-					max = max + (double) Math.ceil(listSize/(Math.pow(2,count)));
+		@SuppressWarnings("resource")
+		Scanner scan = new Scanner(System.in);
+		boolean again = true;
+		while(again){
+			System.out.println("--------------------------------------------------");
+			System.out.println("input your number between 0 and 1000000");
+			System.out.println("--------------------------------------------------");
+			double target = scan.nextDouble();
+			double listSize = 100000.0;
+			double half 	= 0.0;
+			double max 	= listSize;
+			boolean chk = true;
+			int count		= 1;
+			while(chk){
+				half = (double) Math.ceil(max/2);
+				System.out.println("target: "+target+"       Half: "+half+"      realNumber: "+(max/2));
+				if (half == target) {
+					chk = false;
 				} else {
-					max = max - (double) Math.ceil(listSize/(Math.pow(2,count)));
+					if(half < target) {
+						max = max + (double) Math.ceil(listSize/(Math.pow(2,count)));
+					} else {
+						max = max - (double) Math.ceil(listSize/(Math.pow(2,count)));
+					}
+					count++;
 				}
-				count++;
+				if (count>=listSize) chk = false;
+				if (max/2>listSize) max = (double) Math.ceil(listSize*2);
+				System.out.println("max: "+max);
 			}
-			if (count>=listSize) chk = false;
-			if (max/2>listSize) max = (double) Math.ceil(listSize*2);
-			System.out.println("max: "+max);
+			System.out.println(count);	
+			System.out.println("--------------------------------------------------");
+			System.out.println("test again? (y/n)");
+			System.out.println("--------------------------------------------------");
+			if(scan.next().equalsIgnoreCase("n")) again = false;
 		}
-		System.out.println(count);
 	}
 	
 //	@Test
