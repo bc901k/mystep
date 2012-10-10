@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
@@ -38,7 +40,7 @@ public class MakingTestFile {
 		}
 	}
 
-	@Test
+//	@Test
 	public void binarySearching(){ 
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
@@ -75,15 +77,6 @@ public class MakingTestFile {
 			System.out.println("test again? (y/n)");
 			System.out.println("--------------------------------------------------");
 			if(scan.next().equalsIgnoreCase("n")) again = false;
-		}
-	}
-	
-//	@Test
-	public void test() {
-		Long a= 1L;
-		Long b= 2L;
-		if (a<b){
-			System.out.println("it is");
 		}
 	}
 	
@@ -189,5 +182,39 @@ public class MakingTestFile {
 		x ^= (x << 4);
 		return x;
 	}
+	
+//	private static Queue<Integer> que;
+	
+	
+	Runnable r3 = new Runnable() {
+		
+		@Override
+		public void run() {
+			Random randomGenerator = new Random();
+			long interval = 1000L;
+			try {
+				while (true) {
+					ThreadQueue.getInstance().add(randomGenerator.nextInt(10000));
+					interval = randomGenerator.nextInt(10000);
+					System.out.println("que: "+ThreadQueue.getInstance().toString()+"         interval: "+interval);
+					Thread.sleep(interval);
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+		}
+	};
+	
+	@Test
+	public void queueGenerator() throws InterruptedException {
+		Thread thr = new Thread(r3);
+		thr.start();
+		Thread.sleep(10000L);
+		Thread.interrupted();
+	}
+	
+	//mysql root//'' and test//'1234'
+	
 	
 }
