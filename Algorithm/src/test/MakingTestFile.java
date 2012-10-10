@@ -62,7 +62,7 @@ public class MakingTestFile {
 					if(half < target) {
 						max = max + (double) Math.ceil(listSize/(Math.pow(2,count)));
 					} else {
-						max = max - (double) Math.ceil(listSize/(Math.pow(2,count)));
+						max = max - (double) Math.ceil(listSize/(Math.pow(2,count))); 
 					}
 					count++;
 				}
