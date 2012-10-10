@@ -1,14 +1,11 @@
 package test;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -212,12 +209,64 @@ public class MakingTestFile {
 		
 		@Override
 		public void run() {
-			List<Integer> list = new ArrayList<Integer>();
+			List<String> list = new ArrayList<String>();
 			try {
 				while (true) {
 					if(!ThreadQueue.getInstance().isEmpty()) {
-						list.add(ThreadQueue.getInstance().poll());
-						System.out.println("polledValue: "+list.toString()+"     ThreadName: "+Thread.currentThread().toString());
+						list.add(ThreadQueue.getInstance().poll().toString());
+						list.add(Thread.currentThread().toString());
+						DBTest insert = new DBTest();
+						insert.dbInsertPolledData(list);
+						System.out.println("polledValue: "+list.toString()+"     ThreadName: "+Thread.currentThread().toString()+"     time: "+x);
+						list.clear();
+					}
+					Thread.sleep(500L);
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+		}
+	};
+	
+	Runnable r5 = new Runnable() {
+		
+		@Override
+		public void run() {
+			List<String> list = new ArrayList<String>();
+			try {
+				while (true) {
+					if(!ThreadQueue.getInstance().isEmpty()) {
+						list.add(ThreadQueue.getInstance().poll().toString());
+						list.add(Thread.currentThread().toString());
+						DBTest insert = new DBTest();
+						insert.dbInsertPolledData(list);
+						System.out.println("polledValue: "+list.toString()+"     ThreadName: "+Thread.currentThread().toString()+"     time: "+x);
+						list.clear();
+					}
+					Thread.sleep(500L);
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+		}
+	};
+	
+	Runnable r6 = new Runnable() {
+		
+		@Override
+		public void run() {
+			List<String> list = new ArrayList<String>();
+			try {
+				while (true) {
+					if(!ThreadQueue.getInstance().isEmpty()) {
+						list.add(ThreadQueue.getInstance().poll().toString());
+						list.add(Thread.currentThread().toString());
+						DBTest insert = new DBTest();
+						insert.dbInsertPolledData(list);
+						System.out.println("polledValue: "+list.toString()+"     ThreadName: "+Thread.currentThread().toString()+"     time: "+x);
+						list.clear();
 					}
 					Thread.sleep(500L);
 				}
@@ -234,7 +283,11 @@ public class MakingTestFile {
 		thrGenerator.start();
 		Thread thrPoller01 = new Thread(r4);
 		thrPoller01.start();
-		Thread.sleep(10000L);
+		Thread thrPoller02 = new Thread(r5);
+		thrPoller02.start();
+		Thread thrPoller03 = new Thread(r6);
+		thrPoller03.start();
+		Thread.sleep(20000L);
 		Thread.interrupted();
 	}
 	
