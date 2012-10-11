@@ -7,10 +7,10 @@ public class ThreadQueue {
 	  private volatile static Queue<Integer> uniqueQueue;
 	  private ThreadQueue() {}
 
-	  public static Queue<Integer> getInstance(){
-	    if(uniqueQueue == null){
+	  public static synchronized Queue<Integer> getInstance(){
+	    if(uniqueQueue==null){
 	      synchronized(ThreadQueue.class){
-	        if(uniqueQueue == null){
+	        if(uniqueQueue==null){
 	        	uniqueQueue = new LinkedList<Integer>();
 	        }
 	      }

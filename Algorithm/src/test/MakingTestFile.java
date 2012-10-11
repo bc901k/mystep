@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.CountDownLatch;
 
 public class MakingTestFile {
 	
@@ -182,7 +183,11 @@ public class MakingTestFile {
 		return x;
 	}
 	
-//	private static Queue<Integer> que;
+	private final CountDownLatch startLatch;
+	
+	public MakingTestFile (CountDownLatch startLatch) {
+		this.startLatch = startLatch;
+	}
 	
 	
 	Runnable r3 = new Runnable() {
@@ -195,7 +200,7 @@ public class MakingTestFile {
 				while (true) {
 					ThreadQueue.getInstance().add(randomGenerator.nextInt(10000));
 					interval = randomGenerator.nextInt(1000);
-					System.out.println("que: "+ThreadQueue.getInstance().toString()+"         interval: "+interval+"     ThreadName: "+Thread.currentThread().toString());
+					//System.out.println("que: "+ThreadQueue.getInstance().toString()+"         interval: "+interval+"     ThreadName: "+Thread.currentThread().toString());
 					Thread.sleep(interval);
 				}
 			} catch (InterruptedException e) {
@@ -217,10 +222,10 @@ public class MakingTestFile {
 						list.add(Thread.currentThread().toString());
 						DBTest insert = new DBTest();
 						insert.dbInsertPolledData(list);
-						System.out.println("polledValue: "+list.toString()+"     ThreadName: "+Thread.currentThread().toString()+"     time: "+x);
+						//System.out.println("polledValue: "+list.toString()+"     ThreadName: "+Thread.currentThread().toString()+"     time: "+x);
 						list.clear();
 					}
-					Thread.sleep(500L);
+					Thread.sleep(2000L);
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -241,10 +246,10 @@ public class MakingTestFile {
 						list.add(Thread.currentThread().toString());
 						DBTest insert = new DBTest();
 						insert.dbInsertPolledData(list);
-						System.out.println("polledValue: "+list.toString()+"     ThreadName: "+Thread.currentThread().toString()+"     time: "+x);
+						//System.out.println("polledValue: "+list.toString()+"     ThreadName: "+Thread.currentThread().toString()+"     time: "+x);
 						list.clear();
 					}
-					Thread.sleep(500L);
+					Thread.sleep(2000L);
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -265,10 +270,10 @@ public class MakingTestFile {
 						list.add(Thread.currentThread().toString());
 						DBTest insert = new DBTest();
 						insert.dbInsertPolledData(list);
-						System.out.println("polledValue: "+list.toString()+"     ThreadName: "+Thread.currentThread().toString()+"     time: "+x);
+						//System.out.println("polledValue: "+list.toString()+"     ThreadName: "+Thread.currentThread().toString()+"     time: "+x);
 						list.clear();
 					}
-					Thread.sleep(500L);
+					Thread.sleep(2000L);
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -283,15 +288,18 @@ public class MakingTestFile {
 		thrGenerator.start();
 		Thread thrPoller01 = new Thread(r4);
 		thrPoller01.start();
+		Thread.sleep(300L);
 		Thread thrPoller02 = new Thread(r5);
 		thrPoller02.start();
+		Thread.sleep(300L);
 		Thread thrPoller03 = new Thread(r6);
 		thrPoller03.start();
-		Thread.sleep(20000L);
+		Thread.sleep(600000L);
 		Thread.interrupted();
 	}
 	
 	//mysql root//'' and test//'1234'
+	//http://javamex.com/tutorials/threads/CountDownLatch.shtml
 	
 	
 }
