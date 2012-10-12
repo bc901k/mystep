@@ -282,13 +282,12 @@ public class MakingTestFile {
 		}
 	};
 	
-	@Test
+//	@Test
 	public void queueGenerator() throws InterruptedException {
 		Thread thrGenerator = new Thread(r3);
 		thrGenerator.start();
 		Thread thrPoller01 = new Thread(r4);
-		thrPoller01.start();
-		Thread.sleep(300L);
+		thrPoller01.start();		Thread.sleep(300L);
 		Thread thrPoller02 = new Thread(r5);
 		thrPoller02.start();
 		Thread.sleep(300L);
@@ -300,6 +299,11 @@ public class MakingTestFile {
 	
 	//mysql root//'' and test//'1234'
 	//http://javamex.com/tutorials/threads/CountDownLatch.shtml
-	
-	
+	/**
+	 * Think 1. Queue join()
+	 *          2. LinkedBlockQueue, ConcurrentLinkedQueue and ArrayBlockingQueue
+	 *          3. notify(), wait()
+	 *          4. java.util.Observer
+	 */
+
 }
