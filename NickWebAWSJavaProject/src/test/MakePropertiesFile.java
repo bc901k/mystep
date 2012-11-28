@@ -15,13 +15,13 @@ public class MakePropertiesFile {
  
     	try {
     		//set the properties value
-    		String RDSUrl = "jdbc:mysql://nickdbinstance.caqyn82rsye8.ap-northeast-1.rds.amazonaws.com:3306/nickdb";
+    		String RDSUrl = "aaaaaaaaaa";
     		byte[] encoded = Base64.encodeBase64(RDSUrl.getBytes());
     		RDSUrl = new String(encoded);
-    		String RDSuser = "nick";
+    		String RDSuser = "aaaaaa";
     		encoded = Base64.encodeBase64(RDSuser.getBytes());
     		RDSuser = new String(encoded);
-    		String RDSpassword = "nickime76";
+    		String RDSpassword = "aaaaaa";
     		encoded = Base64.encodeBase64(RDSpassword.getBytes());
     		RDSpassword = new String(encoded);
     		prop.setProperty("RDSUrl", RDSUrl);

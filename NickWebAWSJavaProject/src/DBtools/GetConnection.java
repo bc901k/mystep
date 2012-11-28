@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+import org.apache.commons.codec.binary.Base64;
+
 public class GetConnection {
 
 	
@@ -62,9 +64,22 @@ public class GetConnection {
 			String dbClass 		= "com.mysql.jdbc.Driver";
 			String resultMsg 	= "fail to quering";
 			try {
-				prop.load(new FileInputStream("config.properties"));
+				prop.load(new FileInputStream("DB.properties"));
+				
+				String RDSUrl = prop.getProperty("RDSUrl");
+				byte[] decoded = Base64.decodeBase64(RDSUrl.getBytes());
+				RDSUrl = new String(decoded);
+				
+				String RDSuser = prop.getProperty("RDSuser");
+				decoded = Base64.decodeBase64(RDSuser.getBytes());
+				RDSuser = new String(decoded);
+				
+				String RDSpassword = prop.getProperty("RDSpassword");
+				decoded = Base64.decodeBase64(RDSpassword.getBytes());
+				RDSpassword = new String(decoded);		        
+
 				Class.forName(dbClass);
-				Connection con = DriverManager.getConnection (prop.getProperty("RDSUrl"),prop.getProperty("RDSuser"),prop.getProperty("RDSpassword"));
+				Connection con = DriverManager.getConnection (RDSUrl,RDSuser,RDSpassword);
 				Statement stmt = con.createStatement();
 				int rs = stmt.executeUpdate(sql);
 				if (rs==1) resultMsg = "success to quering";
