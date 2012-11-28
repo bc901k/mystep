@@ -66,6 +66,7 @@ public class GetConnection {
 			try {
 				prop.load(new FileInputStream("DB.properties"));
 				
+				//Decoding parameters
 				String RDSUrl = prop.getProperty("RDSUrl");
 				byte[] decoded = Base64.decodeBase64(RDSUrl.getBytes());
 				RDSUrl = new String(decoded);
