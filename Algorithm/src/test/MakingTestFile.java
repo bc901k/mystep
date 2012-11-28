@@ -1,7 +1,9 @@
 package test;
 
+import org.apache.catalina.connector.Response;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
+import org.op4j.Op;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +13,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 
 public class MakingTestFile {
@@ -306,4 +309,14 @@ public class MakingTestFile {
 	 *          4. java.util.Observer
 	 */
 
+	public void opTest() {
+		List<String> list = new ArrayList<String>();
+		Set<String> set = Op.on(list).toSet().get();
+
+	}
+	
+	@Test
+	public void getWeather(){
+
+	}
 }
