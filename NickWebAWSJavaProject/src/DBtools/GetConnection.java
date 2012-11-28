@@ -66,23 +66,14 @@ public class GetConnection {
 			try {
 				prop.load(new FileInputStream("DB.properties"));
 				
-				//Decoding parameters
-				String RDSUrl = prop.getProperty("RDSUrl");
-				byte[] decoded = Base64.decodeBase64(RDSUrl.getBytes());
-				RDSUrl = new String(decoded);
-				
-				String RDSuser = prop.getProperty("RDSuser");
-				decoded = Base64.decodeBase64(RDSuser.getBytes());
-				RDSuser = new String(decoded);
-				
-				String RDSpassword = prop.getProperty("RDSpassword");
-				decoded = Base64.decodeBase64(RDSpassword.getBytes());
-				RDSpassword = new String(decoded);		        
-
+				//Decoding parameters			
+				String RDSUrl 			= new String(Base64.decodeBase64(prop.getProperty("RDSUrl").getBytes()));				
+				String RDSuser 			= new String(Base64.decodeBase64(prop.getProperty("RDSuser").getBytes()));				
+				String RDSpassword = new String(Base64.decodeBase64(prop.getProperty("RDSpassword").getBytes()));	        
 				Class.forName(dbClass);
-				Connection con = DriverManager.getConnection (RDSUrl,RDSuser,RDSpassword);
-				Statement stmt = con.createStatement();
-				int rs = stmt.executeUpdate(sql);
+				Connection con 	= DriverManager.getConnection (RDSUrl,RDSuser,RDSpassword);
+				Statement stmt 	= con.createStatement();
+				int rs 					= stmt.executeUpdate(sql);
 				if (rs==1) resultMsg = "success to quering";
 
 				con.close();
